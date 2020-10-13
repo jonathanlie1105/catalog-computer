@@ -136,7 +136,7 @@ export class AppService {
       nama: "Ryzen 3 3300X",
       merek: "AMD",
       foto:
-        "http://www.jagatreview.com/wp-content/uploads/2020/05/Ryzen_3_BOX.png",
+        "https://www.jagatreview.com/wp-content/uploads/2020/05/Ryzen_3_BOX.png",
       base_clock: 3.8,
       boost_clock: 4.3,
       core: 4,
