@@ -1,0 +1,48 @@
+<app-header *ngIf="item" [backButton]="true" [defaultHistory]="['home']"
+  >{{ item.nama }}</app-header
+>
+
+<app-header *ngIf="!item" [backButton]="true" [defaultHistory]="['home']"
+  >Not Found</app-header
+>
+
+<ion-content>
+  <app-loading-skeleton-detail *ngIf="loading"></app-loading-skeleton-detail>
+
+  <ion-grid *ngIf="!loading && !item">
+    <ion-row>
+      <ion-col>
+        <ion-label>No item found 404</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!loading && item">
+    <ion-row>
+      <ion-col>
+        <ion-img [src]="item.foto"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h1>{{item.merek}} - {{item.nama}}</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>Harga:</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{item.harga | currency:"Rp "}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>Stock:</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{item.stok}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

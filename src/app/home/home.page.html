@@ -1,20 +1,26 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header
+  *ngIf="display === 'list'"
+  [icons]="['grid-outline']"
+  (handler)="eventHandler($event)"
+  >Home</app-header
+>
+<app-header
+  *ngIf="display === 'grid'"
+  [icons]="['list-outline']"
+  (handler)="eventHandler($event)"
+  >Home</app-header
+>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <app-loading-skeleton *ngIf="loading" [num]="5"></app-loading-skeleton>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <app-items-list
+    *ngIf="!loading && display === 'list'"
+    [items]="items"
+  ></app-items-list>
+
+  <app-items-grid
+    *ngIf="!loading && display === 'grid'"
+    [items]="items"
+  ></app-items-grid>
 </ion-content>

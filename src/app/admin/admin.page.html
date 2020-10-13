@@ -1,0 +1,16 @@
+<app-header [icons]="['add-outline']" (handler)="eventHandler($event)"
+  >Admin</app-header
+>
+
+<ion-content>
+  <ion-content class="ion-padding">
+    <app-loading-skeleton *ngIf="loading" [num]="5"></app-loading-skeleton>
+
+    <app-items-list
+      *ngIf="!loading"
+      [items]="items"
+      [admin]="true"
+      (handler)="editHandler($event)"
+    ></app-items-list>
+  </ion-content>
+</ion-content>

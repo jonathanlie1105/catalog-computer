@@ -1,32 +1,38 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { IonicModule } from "@ionic/angular";
 import { FormsModule } from "@angular/forms";
-import { HomePage } from "./home.page";
 
-import { HomePageRoutingModule } from "./home-routing.module";
+import { IonicModule } from "@ionic/angular";
+
+import { AdminPageRoutingModule } from "./admin-routing.module";
+
+import { AdminPage } from "./admin.page";
 import {
-  SharedheaderModule,
   HeaderComponent,
   ItemsGridComponent,
   ItemsListComponent,
   LoadingSkeletonComponent,
+  SharedheaderModule,
 } from "../components";
+import { ModalEditComponent } from "./components/modal-edit/modal-edit.component";
+import { ModalAddComponent } from "./components/modal-add/modal-add.component";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,
+    AdminPageRoutingModule,
     SharedheaderModule,
   ],
   declarations: [
-    HomePage,
+    AdminPage,
     ItemsGridComponent,
     ItemsListComponent,
     LoadingSkeletonComponent,
+    ModalAddComponent,
+    ModalEditComponent,
   ],
   bootstrap: [HeaderComponent],
 })
-export class HomePageModule {}
+export class AdminPageModule {}

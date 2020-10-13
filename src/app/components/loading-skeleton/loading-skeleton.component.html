@@ -1,0 +1,18 @@
+<ion-list>
+  <ion-item *ngFor="let number of numbers">
+    <ion-thumbnail slot="start">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-grid>
+      <ion-row
+        ><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text
+      ></ion-row>
+      <ion-row
+        ><ion-skeleton-text animated style="width: 75%"></ion-skeleton-text
+      ></ion-row>
+      <ion-row
+        ><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text
+      ></ion-row>
+    </ion-grid>
+  </ion-item>
+</ion-list>
