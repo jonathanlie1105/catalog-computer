@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 
 import { Item } from "src/types/item";
 import { Jenis } from "src/types/jenis";
@@ -237,17 +238,65 @@ export class AppService {
     );
   }
 
+  deleteItem(itemId: string) {
+    this.items = this.items.filter(({ id }) => id !== itemId);
+  }
+
+  addItems(form: FormGroup) {
+    const item = this.sanitizeObject(form);
+    this.items.push(item);
+  }
+
+  editItems(itemId: string, form: FormGroup) {
+    const alteredItem = this.sanitizeObject(form, itemId);
+    const idx = this.items.findIndex(({ id }) => id === itemId);
+
+    if (idx !== -1) {
+      this.items[idx] = alteredItem;
+    }
+  }
+
+  sanitizeObject(form: FormGroup, itemId?: string) {
+    const { nama, foto, merek, harga, stok } = form.value;
+    const jenis = itemId
+      ? this.items.find((item) => item.id === itemId).jenis
+      : form.value.jenis;
+    const generalObject = {
+      id: itemId || this.generateId(jenis),
+      nama,
+      foto,
+      merek,
+      harga,
+      stok,
+      jenis,
+    };
+
+    switch (jenis) {
+      case "cpu":
+        const { base_clock, boost_clock, core, thread } = form.value;
+        return { ...generalObject, base_clock, boost_clock, core, thread };
+      case "ram":
+        const { speed, ukuran } = form.value;
+        return { ...generalObject, speed, ukuran };
+      case "mobo":
+        const { chipset, to_prosesor } = form.value;
+        return { ...generalObject, chipset, to_prosesor };
+      case "gpu":
+        return generalObject;
+    }
+  }
+
   generateId(jenis: Jenis) {
     const { length } = this.items;
     switch (jenis) {
       case "cpu":
-        return `cp${length}`;
+        return `cp${length + 1}`;
       case "gpu":
-        return `gp${length}`;
+        return `gp${length + 1}`;
       case "mobo":
-        return `mb${length}`;
+        return `mb${length + 1}`;
       case "ram":
-        return `rm${length}`;
+        return `rm${length + 1}`;
     }
   }
 }

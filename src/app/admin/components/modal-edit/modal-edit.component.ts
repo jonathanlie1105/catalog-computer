@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ModalController } from "@ionic/angular";
+import { ModalController, ToastController } from "@ionic/angular";
+import { AppService } from "src/app/app.service";
 import { EmitParams, Item, Jenis } from "src/types";
 
 const required: Validators = {
@@ -18,7 +19,11 @@ export class ModalEditComponent implements OnInit {
   form: FormGroup;
   jenis: Jenis;
 
-  constructor(private modalController: ModalController) {}
+  constructor(
+    private app: AppService,
+    private modalController: ModalController,
+    private toastController: ToastController
+  ) {}
 
   ngOnInit() {
     this.jenis = this.item.jenis;
@@ -51,12 +56,32 @@ export class ModalEditComponent implements OnInit {
         this.modalController.dismiss();
         break;
       case "checkmark-outline":
-        this.onSubmit();
+        if (this.onSubmit()) {
+          this.presentToast("success");
+          this.modalController.dismiss();
+        }
         break;
     }
   }
 
   onSubmit() {
-    console.log(this.form.valid);
+    if (!this.form.valid) {
+      this.presentToast("error");
+      return false;
+    }
+    this.app.editItems(this.item.id, this.form);
+    return true;
+  }
+
+  async presentToast(type: "error" | "success") {
+    const toast = await this.toastController.create({
+      header: type === "error" ? "ERROR!" : "SUCCESS",
+      message:
+        type === "error" ? "Some required input is empty" : "Edit item success",
+      color: type === "error" ? "warning" : "success",
+      duration: 3000,
+    });
+
+    return await toast.present();
   }
 }
