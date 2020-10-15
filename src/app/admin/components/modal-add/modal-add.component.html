@@ -1,9 +1,136 @@
 <app-header
   [sideMenu]="false"
-  [icons]="['close-outline']"
+  [icons]="['checkmark-outline', 'close-outline']"
   (handler)="eventHandler($event)"
-  >Modal Add</app-header
+  >Add New Item</app-header
 >
-<ion-content>
-  <ion-label>Ini untuk add</ion-label>
+<ion-content class="ion-padding">
+  <form [formGroup]="form">
+    <ion-list>
+      <ion-list-header>General Information</ion-list-header>
+
+      <ion-item>
+        <ion-label>URL Foto</ion-label>
+        <ion-input type="text" formControlName="foto"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Jenis</ion-label>
+        <ion-select
+          placeholder="Select One"
+          interface="popover"
+          formControlName="jenis"
+          (ionChange)="changeJenis($event)"
+        >
+          <ion-select-option value="cpu">CPU</ion-select-option>
+          <ion-select-option value="gpu">GPU</ion-select-option>
+          <ion-select-option value="mobo">Motherboard</ion-select-option>
+          <ion-select-option value="ram">RAM</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Nama</ion-label>
+        <ion-input type="text" formControlName="nama"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Merek</ion-label>
+        <ion-input type="text" formControlName="merek"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Harga Rp.</ion-label>
+        <ion-input type="number" formControlName="harga"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Stock</ion-label>
+        <ion-input type="number" formControlName="stok"></ion-input>
+      </ion-item>
+
+      <ng-container *ngIf="jenis === 'cpu'">
+        <ion-list-header>Detail Information</ion-list-header>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked">Base Clock</ion-label>
+                <ion-input
+                  type="number"
+                  formControlName="base_clock"
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked">Boost Clock</ion-label>
+                <ion-input
+                  type="number"
+                  formControlName="boost_clock"
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked">Core Count </ion-label>
+                <ion-input type="number" formControlName="core"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked">Thread Count</ion-label>
+                <ion-input type="number" formControlName="thread"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-container>
+
+      <ng-container *ngIf="jenis === 'mobo'">
+        <ion-list-header>Detail Information</ion-list-header>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked">Chipset</ion-label>
+                <ion-input type="text" formControlName="chipset"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked">Merek Processor</ion-label>
+                <ion-input
+                  type="text"
+                  formControlName="to_prosesor"
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-container>
+
+      <ng-container *ngIf="jenis === 'ram'">
+        <ion-list-header>Detail Information</ion-list-header>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked">Speed</ion-label>
+                <ion-input type="number" formControlName="speed"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked">Ukuran</ion-label>
+                <ion-input type="number" formControlName="ukuran"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-container>
+    </ion-list>
+  </form>
 </ion-content>

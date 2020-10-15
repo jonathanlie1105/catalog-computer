@@ -21,7 +21,7 @@ export class AdminPage implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.items = this.app.getItemsByJenis("cpu", true);
+      this.items = this.app.getAllItems(true);
       this.loading = false;
     }, 3000);
   }
