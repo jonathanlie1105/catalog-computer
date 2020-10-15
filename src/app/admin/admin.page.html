@@ -1,4 +1,14 @@
-<app-header [icons]="['add-outline']" (handler)="eventHandler($event)"
+<app-header
+  *ngIf="display === 'list'"
+  [icons]="['grid-outline','add-outline']"
+  (handler)="eventHandler($event)"
+  >Admin</app-header
+>
+
+<app-header
+  *ngIf="display === 'grid'"
+  [icons]="['list-outline','add-outline']"
+  (handler)="eventHandler($event)"
   >Admin</app-header
 >
 
@@ -7,10 +17,17 @@
     <app-loading-skeleton *ngIf="loading" [num]="5"></app-loading-skeleton>
 
     <app-items-list
-      *ngIf="!loading"
+      *ngIf="!loading  && display === 'list'"
       [items]="items"
       [admin]="true"
       (handler)="editHandler($event)"
     ></app-items-list>
+
+    <app-items-grid
+      *ngIf="!loading && display === 'grid'"
+      [items]="items"
+      [admin]="true"
+      (handler)="editHandler($event)"
+    ></app-items-grid>
   </ion-content>
 </ion-content>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { EditParams, EmitParams, Item } from "src/types";
+import { Display, EditParams, EmitParams, Item } from "src/types";
 import { AppService } from "../app.service";
 import { ModalAddComponent } from "./components/modal-add/modal-add.component";
 import { ModalEditComponent } from "./components/modal-edit/modal-edit.component";
@@ -12,6 +12,7 @@ import { ModalEditComponent } from "./components/modal-edit/modal-edit.component
 })
 export class AdminPage implements OnInit {
   items: Array<Item>;
+  display: Display = "list";
   loading: boolean = true;
 
   constructor(
@@ -31,8 +32,14 @@ export class AdminPage implements OnInit {
       case "add-outline":
         this.showAddModal();
         return;
+      case "grid-outline":
+        this.display = "grid";
+        break;
+      case "list-outline":
+        this.display = "list";
+        break;
       default:
-        return;
+        console.log("No such action exist");
     }
   }
 

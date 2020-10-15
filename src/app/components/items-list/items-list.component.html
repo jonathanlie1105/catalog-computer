@@ -1,4 +1,4 @@
-<ion-list *ngIf="!admin; else noAdmin">
+<ion-list *ngIf="!admin; else anAdmin">
   <ion-item *ngFor="let item of items" [routerLink]="[item.id]">
     <ion-thumbnail slot="start">
       <ion-img [src]="item.foto"></ion-img>
@@ -11,18 +11,20 @@
   </ion-item>
 </ion-list>
 
-<ng-template #noAdmin>
-  <ion-item
-    *ngFor="let item of items"
-    (click)="handler.emit({ itemId: item.id })"
-  >
-    <ion-thumbnail slot="start">
-      <ion-img [src]="item.foto"></ion-img>
-    </ion-thumbnail>
-    <ion-grid>
-      <ion-row>{{ item.merek }} {{ item.nama }}</ion-row>
-      <ion-row>Harga : {{ item.harga | currency: "Rp " }}</ion-row>
-      <ion-row>Tersedia : {{ item.stok }}</ion-row>
-    </ion-grid>
-  </ion-item>
+<ng-template #anAdmin>
+  <ion-list>
+    <ion-item
+      *ngFor="let item of items"
+      (click)="handler.emit({ itemId: item.id })"
+    >
+      <ion-thumbnail slot="start">
+        <ion-img [src]="item.foto"></ion-img>
+      </ion-thumbnail>
+      <ion-grid>
+        <ion-row>{{ item.merek }} {{ item.nama }}</ion-row>
+        <ion-row>Harga : {{ item.harga | currency: "Rp " }}</ion-row>
+        <ion-row>Tersedia : {{ item.stok }}</ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
 </ng-template>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Item } from "src/types";
 
 @Component({
@@ -8,8 +8,14 @@ import { Item } from "src/types";
 })
 export class ItemsGridComponent implements OnInit {
   @Input() items: Array<Item>;
+  @Input() admin: boolean = false;
+  @Output() handler: EventEmitter<() => void> = new EventEmitter();
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.admin && this.handler === undefined) {
+      throw new Error("If you are an admin, please provide a handler");
+    }
+  }
 }
