@@ -60,6 +60,9 @@ export class ItemsListComponent implements OnInit {
         {
           text: "No",
           role: "cancel",
+          handler: () => {
+            slider.close();
+          },
         },
       ],
     });

@@ -69,6 +69,7 @@ export class ModalEditComponent implements OnInit {
   onSubmit() {
     if (!this.form.valid) {
       this.presentToast("error");
+      return;
     }
     this.showAlert();
   }
