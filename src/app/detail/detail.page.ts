@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
-import { Item } from "src/types";
+import { Item, Jenis } from "src/types";
 import { AppService } from "../app.service";
 
 @Component({
@@ -27,6 +27,6 @@ export class DetailPage implements OnInit {
     });
     setTimeout(() => {
       this.loading = false;
-    }, 3000);
+    }, 1000);
   }
 }

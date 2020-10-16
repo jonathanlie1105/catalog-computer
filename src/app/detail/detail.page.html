@@ -44,5 +44,77 @@
         <ion-label>{{item.stok}}</ion-label>
       </ion-col>
     </ion-row>
+
+    <ng-container *ngIf="item.jenis === 'cpu'">
+      <ion-row>
+        <ion-col>
+          <ion-label>Base Clock:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>{{ item['base_clock'] }} Ghz</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Boost Clock:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>{{ item['boost_clock'] }} GHz</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Jumlah Core:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>{{ item['core']}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Thread:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>{{ item['thread'] }}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+    <ng-container *ngIf="item.jenis == 'mobo'">
+      <ion-row>
+        <ion-col>
+          <ion-label>Chipset:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>{{ item['chipset'] }}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Support Merk:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>{{ item['to_prosesor'] }}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+
+    <ng-container *ngIf="item.jenis === 'ram'">
+      <ion-row>
+        <ion-col>
+          <ion-label>Speed:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>{{ item['speed'] }} MHz</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Ukuran:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>{{ item['ukuran'] }} GB</ion-label>
+        </ion-col>
+      </ion-row>
+    </ng-container>
   </ion-grid>
 </ion-content>

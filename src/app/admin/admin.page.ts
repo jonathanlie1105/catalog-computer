@@ -27,6 +27,10 @@ export class AdminPage implements OnInit {
     }, 1000);
   }
 
+  ionViewWillEnter() {
+    this.items = this.app.getAllItems(true);
+  }
+
   eventHandler({ type }: EmitParams) {
     switch (type) {
       case "add-outline":

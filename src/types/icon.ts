@@ -4,5 +4,4 @@ export type Icon =
   | "checkmark-outline"
   | "close-outline"
   | "add-outline"
-  | "create-outline"
   | "trash-outline";

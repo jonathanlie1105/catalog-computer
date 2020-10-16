@@ -22,6 +22,10 @@ export class HomePage implements OnInit {
     }, 1000);
   }
 
+  ionViewWillEnter() {
+    this.items = this.app.getAllItems();
+  }
+
   eventHandler({ type }: EmitParams) {
     switch (type) {
       case "grid-outline":
