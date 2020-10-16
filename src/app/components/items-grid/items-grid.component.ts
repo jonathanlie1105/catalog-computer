@@ -1,5 +1,9 @@
 import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
-import { AlertController, IonItemSliding } from "@ionic/angular";
+import {
+  AlertController,
+  IonItemSliding,
+  ToastController,
+} from "@ionic/angular";
 import { AppService } from "src/app/app.service";
 import { Item } from "src/types";
 
@@ -15,7 +19,8 @@ export class ItemsGridComponent implements OnInit {
 
   constructor(
     private app: AppService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -48,6 +53,7 @@ export class ItemsGridComponent implements OnInit {
           cssClass: "danger",
           handler: () => {
             this.app.deleteItem(itemId);
+            this.showToast();
             slider.close();
           },
         },
@@ -58,5 +64,16 @@ export class ItemsGridComponent implements OnInit {
       ],
     });
     return await alert.present();
+  }
+
+  async showToast() {
+    const toast = await this.toastController.create({
+      header: "Success",
+      message: `Success delete items`,
+      color: "success",
+      duration: 2000,
+    });
+
+    return await toast.present();
   }
 }
