@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ModalController, ToastController } from "@ionic/angular";
+import {
+  AlertController,
+  ModalController,
+  ToastController,
+} from "@ionic/angular";
 import { AppService } from "src/app/app.service";
 import { EmitParams, Jenis } from "src/types";
 
@@ -20,7 +24,8 @@ export class ModalAddComponent implements OnInit {
   constructor(
     private app: AppService,
     private modalController: ModalController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -68,10 +73,8 @@ export class ModalAddComponent implements OnInit {
         this.modalController.dismiss();
         break;
       case "checkmark-outline":
-        if (this.onSubmit()) {
-          this.presentToast("success");
-          this.modalController.dismiss();
-        }
+        this.onSubmit();
+
         break;
     }
   }
@@ -85,10 +88,8 @@ export class ModalAddComponent implements OnInit {
   onSubmit() {
     if (!this.form.valid) {
       this.presentToast("error");
-      return false;
     }
-    this.app.addItems(this.form);
-    return true;
+    this.showAlert();
   }
 
   async presentToast(type: "error" | "success") {
@@ -101,5 +102,29 @@ export class ModalAddComponent implements OnInit {
     });
 
     return await toast.present();
+  }
+
+  async showAlert() {
+    const alert = await this.alertController.create({
+      header: "Are your sure?",
+      message: "Add this item cannot be undo..",
+      buttons: [
+        {
+          text: "Yes",
+          role: "submit",
+          cssClass: "danger",
+          handler: () => {
+            this.app.addItems(this.form);
+            this.presentToast("success");
+            this.modalController.dismiss();
+          },
+        },
+        {
+          text: "No",
+          role: "cancel",
+        },
+      ],
+    });
+    return await alert.present();
   }
 }
