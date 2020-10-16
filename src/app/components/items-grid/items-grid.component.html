@@ -33,29 +33,22 @@
         </ion-item-options>
 
         <ion-item (click)="handler.emit({ itemId: item.id })">
-          <ion-card
-            [ngStyle]="{
-              color: isSelected(item.id) ? 'blue' : 'white'
-            }"
-          >
+          <ion-card [ngClass]="{ selected: isSelected(item.id) }">
             <ion-img [src]="item.foto"></ion-img>
             <ion-card-header>
               <ion-card-subtitle
-                [ngStyle]="{
-                  color: isSelected(item.id) ? 'blue' : 'white'
-                }"
+                [ngClass]="{ contrast: isSelected(item.id) }"
                 >{{ item.merek }}</ion-card-subtitle
               >
-              <ion-card-title
-                [ngStyle]="{
-                  color: isSelected(item.id) ? 'blue' : 'white'
-                }"
-                >{{ item.nama }}</ion-card-title
-              >
+              <ion-card-title>{{ item.nama }}</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-              <p>Harga : {{ item.harga | currency: "Rp " }}</p>
-              <p>Tersedia : {{ item.stok }}</p>
+              <ion-text [ngClass]="{ contrast: isSelected(item.id) }"
+                >Harga : {{ item.harga | currency: "Rp " }}</ion-text
+              >
+              <ion-text [ngClass]="{ contrast: isSelected(item.id) }"
+                >Tersedia : {{ item.stok }}</ion-text
+              >
             </ion-card-content>
           </ion-card>
         </ion-item>

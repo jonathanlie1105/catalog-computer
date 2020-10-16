@@ -26,9 +26,7 @@
     </ion-item-options>
 
     <ion-item
-      [ngStyle]="{
-        color: isSelected(item.id) ? 'blue' : 'white'
-      }"
+      [ngClass]="{ selected: isSelected(item.id) }"
       (click)="handler.emit({ itemId: item.id })"
     >
       <ion-thumbnail slot="start">

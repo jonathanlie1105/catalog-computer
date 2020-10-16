@@ -1,3 +1,11 @@
 ion-card-title {
   font-size: small;
 }
+
+.selected {
+  background: var(--ion-color-primary);
+}
+
+.contrast {
+  color: var(--ion-color-primary-contrast);
+}
