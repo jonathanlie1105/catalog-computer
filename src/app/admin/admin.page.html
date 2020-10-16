@@ -1,20 +1,27 @@
 <app-header
-  *ngIf="display === 'list'"
+  *ngIf="!isThereSelectedItems() && display === 'list'"
   [icons]="['grid-outline','add-outline']"
   (handler)="eventHandler($event)"
   >Admin</app-header
 >
 
 <app-header
-  *ngIf="display === 'grid'"
+  *ngIf="!isThereSelectedItems() && display === 'grid'"
   [icons]="['list-outline','add-outline']"
   (handler)="eventHandler($event)"
   >Admin</app-header
 >
 
+<app-header
+  *ngIf="isThereSelectedItems()"
+  [icons]="['trash-outline','close-outline']"
+  (handler)="eventHandler($event)"
+  >{{ getSelectedLength() }} Items Selected</app-header
+>
+
 <ion-content>
   <ion-content class="ion-padding">
-    <app-loading-skeleton *ngIf="loading" [num]="5"></app-loading-skeleton>
+    <app-loading-skeleton *ngIf="loading" [num]="17"></app-loading-skeleton>
 
     <app-items-list
       *ngIf="!loading  && display === 'list'"

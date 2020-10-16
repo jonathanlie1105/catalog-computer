@@ -24,7 +24,7 @@ export class AdminPage implements OnInit {
     setTimeout(() => {
       this.items = this.app.getAllItems(true);
       this.loading = false;
-    }, 3000);
+    }, 1000);
   }
 
   eventHandler({ type }: EmitParams) {
@@ -38,9 +38,23 @@ export class AdminPage implements OnInit {
       case "list-outline":
         this.display = "list";
         break;
+      case "trash-outline":
+        this.app.deleteSelectedItem();
+        break;
+      case "close-outline":
+        this.app.clearSelectedItem();
+        break;
       default:
         console.log("No such action exist");
     }
+  }
+
+  getSelectedLength() {
+    return this.app.getSelectedItem().length;
+  }
+
+  isThereSelectedItems() {
+    return this.getSelectedLength() > 0;
   }
 
   editHandler({ itemId }: EditParams) {

@@ -1,4 +1,4 @@
-<ion-list *ngIf="!admin; else anAdmin">
+<ion-list *ngIf="!admin && items">
   <ion-item *ngFor="let item of items" [routerLink]="[item.id]">
     <ion-thumbnail slot="start">
       <ion-img [src]="item.foto"></ion-img>
@@ -11,10 +11,24 @@
   </ion-item>
 </ion-list>
 
-<ng-template #anAdmin>
-  <ion-list>
+<ion-list *ngIf="admin && items">
+  <ion-item-sliding *ngFor="let item of items" #slider>
+    <ion-item-options (ionSwipe)="deleteItem(item.id, slider)" side="end">
+      <ion-item-option color="danger" (click)="deleteItem(item.id, slider)">
+        <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+
+    <ion-item-options (ionSwipe)="selectItem(item.id, slider)" side="start">
+      <ion-item-option (click)="selectItem(item.id, slider)">
+        <ion-icon name="checkmark-outline" slot="icon-only"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+
     <ion-item
-      *ngFor="let item of items"
+      [ngStyle]="{
+        color: isSelected(item.id) ? 'blue' : 'white'
+      }"
       (click)="handler.emit({ itemId: item.id })"
     >
       <ion-thumbnail slot="start">
@@ -26,5 +40,5 @@
         <ion-row>Tersedia : {{ item.stok }}</ion-row>
       </ion-grid>
     </ion-item>
-  </ion-list>
-</ng-template>
+  </ion-item-sliding>
+</ion-list>

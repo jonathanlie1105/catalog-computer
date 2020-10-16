@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { ToastController } from "@ionic/angular";
 
 import { Item } from "src/types/item";
 import { Jenis } from "src/types/jenis";
@@ -8,6 +9,7 @@ import { Jenis } from "src/types/jenis";
   providedIn: "root",
 })
 export class AppService {
+  private selectedItems: Array<string> = [];
   private items: Array<Item> = [
     {
       jenis: "ram",
@@ -216,7 +218,7 @@ export class AppService {
     },
   ];
 
-  constructor() {}
+  constructor(private toastController: ToastController) {}
 
   getAllItems(admin?: boolean) {
     if (admin) {
@@ -239,7 +241,11 @@ export class AppService {
   }
 
   deleteItem(itemId: string) {
-    this.items = this.items.filter(({ id }) => id !== itemId);
+    const idx = this.items.findIndex(({ id }) => id === itemId);
+
+    if (idx !== -1) {
+      this.items.splice(idx, 1);
+    }
   }
 
   addItems(form: FormGroup) {
@@ -254,6 +260,44 @@ export class AppService {
     if (idx !== -1) {
       this.items[idx] = alteredItem;
     }
+  }
+
+  deleteSelectedItem() {
+    for (let itemId of this.selectedItems) {
+      this.deleteItem(itemId);
+    }
+    this.showToast();
+    this.clearSelectedItem();
+  }
+
+  getSelectedItem() {
+    return this.selectedItems;
+  }
+
+  clearSelectedItem() {
+    this.selectedItems = [];
+  }
+
+  selectItem(itemId: string) {
+    if (!this.selectedItems.includes(itemId)) {
+      this.selectedItems.push(itemId);
+    } else {
+      const idx = this.selectedItems.findIndex((id) => id === itemId);
+      if (idx !== -1) {
+        this.selectedItems.splice(idx, 1);
+      }
+    }
+  }
+
+  async showToast() {
+    const toast = await this.toastController.create({
+      header: "Success",
+      message: `Success delete ${this.selectedItems.length} items`,
+      color: "success",
+      duration: 2000,
+    });
+
+    return await toast.present();
   }
 
   sanitizeObject(form: FormGroup, itemId?: string) {

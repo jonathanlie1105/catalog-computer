@@ -17,9 +17,9 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.items = this.app.getItemsByJenis("cpu");
+      this.items = this.app.getAllItems();
       this.loading = false;
-    }, 3000);
+    }, 1000);
   }
 
   eventHandler({ type }: EmitParams) {
