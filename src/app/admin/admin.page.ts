@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import { AlertController, ModalController } from "@ionic/angular";
 import { Display, EditParams, EmitParams, Item } from "src/types";
 import { AppService } from "../app.service";
 import { ModalAddComponent } from "./components/modal-add/modal-add.component";
@@ -17,7 +17,8 @@ export class AdminPage implements OnInit {
 
   constructor(
     private app: AppService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -43,7 +44,7 @@ export class AdminPage implements OnInit {
         this.display = "list";
         break;
       case "trash-outline":
-        this.app.deleteSelectedItem();
+        this.showAlert();
         break;
       case "close-outline":
         this.app.clearSelectedItem();
@@ -80,5 +81,27 @@ export class AdminPage implements OnInit {
     });
 
     return modal.present();
+  }
+
+  async showAlert() {
+    const alert = await this.alertController.create({
+      header: "Are your sure?",
+      message: `Deleting ${this.getSelectedLength()} items cannot be undo..`,
+      buttons: [
+        {
+          text: "Yes",
+          role: "submit",
+          cssClass: "danger",
+          handler: () => {
+            this.app.deleteSelectedItem();
+          },
+        },
+        {
+          text: "No",
+          role: "cancel",
+        },
+      ],
+    });
+    return await alert.present();
   }
 }
