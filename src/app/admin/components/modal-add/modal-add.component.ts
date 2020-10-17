@@ -107,8 +107,8 @@ export class ModalAddComponent implements OnInit {
 
   async showAlert() {
     const alert = await this.alertController.create({
-      header: "Are your sure?",
-      message: "Add this item cannot be undo..",
+      header: "Are you sure?",
+      message: "Add this item cannot be undo...",
       buttons: [
         {
           text: "Yes",

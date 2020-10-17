@@ -30,7 +30,12 @@ export class ItemsGridComponent implements OnInit {
   }
 
   deleteItem(itemId: string, slider: IonItemSliding) {
-    this.showAlert(itemId, slider);
+    if (!this.isSelected(itemId)) {
+      this.showAlert(itemId, slider);
+    } else {
+      this.showToastError();
+      slider.close();
+    }
   }
 
   selectItem(itemId: string, slider: IonItemSliding) {
@@ -44,8 +49,8 @@ export class ItemsGridComponent implements OnInit {
 
   async showAlert(itemId: string, slider: IonItemSliding) {
     const alert = await this.alertController.create({
-      header: "Are your sure?",
-      message: "Deleting this item cannot be undo..",
+      header: "Are you sure?",
+      message: "Deleting this item cannot be undo...",
       buttons: [
         {
           text: "Yes",
@@ -67,6 +72,17 @@ export class ItemsGridComponent implements OnInit {
       ],
     });
     return await alert.present();
+  }
+
+  async showToastError() {
+    const toast = await this.toastController.create({
+      header: "Error",
+      message: `This item already selected!`,
+      color: "warning",
+      duration: 2000,
+    });
+
+    return await toast.present();
   }
 
   async showToast() {
